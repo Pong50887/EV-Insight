@@ -32,7 +32,7 @@ class App(tk.Tk):
                  borderwidth=20).\
             grid(row=0, column=0, columnspan=4, pady=10, sticky="EW")
 
-        # Create Button to swift to function Estimate price
+        # Create Button to swift to function Insight
         tk.Button(self, text="EV insight",
                   relief="flat", width=20, height=2).\
             grid(row=1, column=0, padx=10, pady=10, sticky="EW")
