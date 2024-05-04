@@ -1,9 +1,9 @@
 import tkinter as tk
-from tkinter import ttk
-import numpy as np
+from tkinter import ttk, messagebox
 from matplotlib import pyplot as plt
-
-
+from Search_data import Search
+from conversion_rate import Conversion
+import numpy as np
 """This is a class App."""
 class App(tk.Tk):
     def __init__(self):
@@ -13,7 +13,11 @@ class App(tk.Tk):
         super().__init__()
         self.title('EV insight')
         self.configure(bg="#DDDDDD")
+        self.search = Search()
+        self.currency = Conversion()
         self.resizable(False, False)
+        self.current_text = self.search.get_defaut_data()
+        self.old_rate = 1
         self.main_menu()
 
     def main_menu(self):
@@ -47,44 +51,97 @@ class App(tk.Tk):
 
         # Create Button to swift to quit App
         tk.Button(self, text="Quit",
-                  relief="flat", width=20, height=2). \
+                  relief="flat", width=20, height=2, command=self.quit). \
             grid(row=2, column=1, padx=10, pady=10, sticky="SEW")
 
     def insight_menu(self):
-        self.geometry('1000x600')
+        self.geometry('1250x600')
         self.columnconfigure(0, weight=1)
         self.columnconfigure(1, weight=1)
         self.columnconfigure(2, weight=1)
         self.columnconfigure(3, weight=1)
         """ The function for estimate main menu """
 
-        # Create land type button
-        tk.Button(self, text='Cheapest', width=20, height=2). \
+        tk.Button(self, text='Cheapest', width=20, height=2, command=self.button_cheapest). \
             grid(row=0, column=0, padx=10, pady=10)
 
-        # Create condo type button
-        tk.Button(self, text='Fast Charge', width=20, height=2,) \
+        tk.Button(self, text='Fast Charge', width=20, height=2, command=self.button_fast_charge) \
             .grid(row=0, column=1, padx=10, pady=10)
 
-        # Create house type button
-        tk.Button(self, text='Most Efficient', width=20, height=2,) \
+        tk.Button(self, text='Most Efficient', width=20, height=2, command=self.button_most_efficient) \
             .grid(row=0, column=2, padx=10, pady=10)
 
-        # Create townhouse type button
-        tk.Button(self, text='Longest Range', width=20, height=2,) \
+        tk.Button(self, text='Longest Range', width=20, height=2, command=self.button_longest_range) \
             .grid(row=0, column=3, padx=10, pady=10)
 
-        tk.Text(self, width=20, height=1). \
-            grid(row=1, columnspan=3, padx=10, pady=10, sticky="SEW")
+        tk.Label(self, text='Change Price', width=10, height=2, background="#DDDDDD") \
+            .grid(row=0, column=4, padx=10, pady=10)
 
-        tk.Button(self, text='Search', width=20, height=2, ) \
-            .grid(row=1, column=3, padx=10, pady=10)
+        self.combo_price = ttk.Combobox(self, width=20, height=10, values=self.currency.get_currency_names())
+        self.combo_price.grid(row=0, column=5, padx=10, pady=10)
+        self.combo_price.bind("<<ComboboxSelected>>", self.combobox_clicked)
+        self.combo_price.current(0)
 
-        tk.Text(self, width=20, height=20). \
-            grid(row=2, columnspan=4, padx=10, pady=10, sticky="SEW")
+        tk.Label(self, text='Search Car name', width=15, height=1, background="#DDDDDD") \
+            .grid(row=1, column=0, pady=10)
+
+        self.Entry_search = tk.Entry(self, width=20)
+        self.Entry_search.grid(row=1, column=1, columnspan=4, sticky="EW")
+
+        tk.Button(self, text='Search', width=20, height=1, command=lambda: self.button_search()) \
+            .grid(row=1, column=5, padx=10, pady=10)
+
+        # SHOW ALL DATA
+        self.databox = tk.Text(self, width=50, height=20)
+        self.databox.grid(row=2, columnspan=6, padx=10, pady=10, sticky="SEW")
+        self.databox.config(state=tk.DISABLED)
+        self.update_databox(self.search.get_defaut_data())
 
         tk.Button(self, text='Back to Main Menu', width=20, height=2, command=self.switch_main_menu) \
-            .grid(row=3, columnspan=4, padx=10, pady=10)
+            .grid(row=3, columnspan=5, padx=10, pady=10)
+
+        tk.Button(self, text='Reset', width=20, height=2, command=self.reset) \
+            .grid(row=3, column=5, padx=10, pady=10)
+
+    def reset(self):
+        self.update_databox(self.search.get_defaut_data())
+        self.combo_price.current(0)
+
+    def combobox_clicked(self, event):
+        conversion_rate = self.currency.get_conversion(self.combo_price.get())
+        updated_price = self.search.get_price(conversion_rate, self.old_rate)
+        self.old_rate = conversion_rate
+        self.update_databox(updated_price)
+
+    def button_search(self):
+        if self.Entry_search.get().lower():
+            update_txt = self.search.search_data(self.Entry_search.get().lower())
+            self.update_databox(update_txt)
+        else:
+            messagebox.showwarning("Search", "Please enter a Car name.")
+
+    def button_most_efficient(self):
+        efficient = self.search.search_most_efficient()
+        self.update_databox(efficient)
+
+    def button_longest_range(self):
+        longest = self.search.search_longest_range()
+        self.update_databox(longest)
+
+    def button_cheapest(self):
+        cheapest = self.search.search_cheapest()
+        self.update_databox(cheapest)
+
+    def button_fast_charge(self):
+        fast_charge = self.search.search_fast_charge()
+        self.update_databox(fast_charge)
+
+    def update_databox(self, data):
+        self.databox.config(state=tk.NORMAL)
+        self.databox.delete("1.0", tk.END)
+        self.current_text = data
+        self.databox.insert(tk.END, data)
+        self.databox.config(state=tk.DISABLED)
 
     def compare_menu(self):
         self.geometry('1000x700')
@@ -92,20 +149,23 @@ class App(tk.Tk):
         self.columnconfigure(1, weight=1)
         self.columnconfigure(2, weight=0)
         self.columnconfigure(3, weight=0)
+        default1 = tk.StringVar(value='---')
+        default2 = tk.StringVar(value='---')
+
         """ The function for display compare menu """
 
-        # Create Combobox to select city
-        ttk.Combobox(self). \
-            grid(row=1, column=0, padx=10, pady=10, sticky="EW")
-        ttk.Combobox(self). \
-            grid(row=1, column=1, padx=10, pady=10, sticky="EW")
+        # Create Combobox to select car
+        self.car1 = ttk.Combobox(self, textvariable=default1, values=self.search.get_car_name_list())
+        self.car1.grid(row=1, column=0, padx=10, pady=10, sticky="EW")
+        self.car2 = ttk.Combobox(self, textvariable=default2, values=self.search.get_car_name_list())
+        self.car2.grid(row=1, column=1, padx=10, pady=10, sticky="EW")
 
-        # Create Label to show what city be selected
-        tk.Label(self, font=("Helvetica", 20),
+        # Create Label to show what car be selected
+        tk.Label(self, textvariable=default1, font=("Helvetica", 20),
                  background="#F6FFDE", foreground="black",
                  borderwidth=10, highlightthickness=2). \
             grid(row=0, column=0, padx=10, pady=10, sticky="EW")
-        tk.Label(self, font=("Helvetica", 20),
+        tk.Label(self, textvariable=default2, font=("Helvetica", 20),
                  background="#F6FFDE", foreground="black",
                  borderwidth=10, highlightthickness=2). \
             grid(row=0, column=1, padx=10, pady=10, sticky="EW")
@@ -136,7 +196,6 @@ class App(tk.Tk):
             widget.destroy()
             plt.close('all')
         self.compare_menu()
-
 
 if __name__ == "__main__":
     app = App()
