@@ -4,6 +4,7 @@ from matplotlib import pyplot as plt
 from Search_data import Search
 from conversion_rate import Conversion
 import numpy as np
+from GraphPlot import GraphPlot
 """This is a class App."""
 class App(tk.Tk):
     def __init__(self):
@@ -15,6 +16,7 @@ class App(tk.Tk):
         self.configure(bg="#DDDDDD")
         self.search = Search()
         self.currency = Conversion()
+        self.GraphPlot = GraphPlot(self)
         self.resizable(False, False)
         self.current_text = self.search.get_defaut_data()
         self.old_rate = 1
@@ -144,11 +146,11 @@ class App(tk.Tk):
         self.databox.config(state=tk.DISABLED)
 
     def compare_menu(self):
-        self.geometry('1000x700')
+        self.geometry('1800x700')
         self.columnconfigure(0, weight=1)
         self.columnconfigure(1, weight=1)
-        self.columnconfigure(2, weight=0)
-        self.columnconfigure(3, weight=0)
+        self.columnconfigure(2, weight=1)
+        self.columnconfigure(3, weight=1)
         default1 = tk.StringVar(value='---')
         default2 = tk.StringVar(value='---')
 
@@ -156,25 +158,52 @@ class App(tk.Tk):
 
         # Create Combobox to select car
         self.car1 = ttk.Combobox(self, textvariable=default1, values=self.search.get_car_name_list())
-        self.car1.grid(row=1, column=0, padx=10, pady=10, sticky="EW")
+        self.car1.grid(row=1, column=0, columnspan=2, padx=10, pady=10, sticky="NSEW")
+        self.car1.bind("<<ComboboxSelected>>", self.car_clicked)
         self.car2 = ttk.Combobox(self, textvariable=default2, values=self.search.get_car_name_list())
-        self.car2.grid(row=1, column=1, padx=10, pady=10, sticky="EW")
+        self.car2.grid(row=1, column=2, columnspan=2, padx=10, pady=10, sticky="NSEW")
+        self.car2.bind("<<ComboboxSelected>>", self.car_clicked)
 
         # Create Label to show what car be selected
         tk.Label(self, textvariable=default1, font=("Helvetica", 20),
                  background="#F6FFDE", foreground="black",
                  borderwidth=10, highlightthickness=2). \
-            grid(row=0, column=0, padx=10, pady=10, sticky="EW")
+            grid(row=0, column=0, columnspan=2, padx=10, pady=10, sticky="EW")
         tk.Label(self, textvariable=default2, font=("Helvetica", 20),
                  background="#F6FFDE", foreground="black",
                  borderwidth=10, highlightthickness=2). \
-            grid(row=0, column=1, padx=10, pady=10, sticky="EW")
+            grid(row=0, column=2, columnspan=2, padx=10, pady=10, sticky="EW")
 
         # Create Button to swift to main menu
         tk.Button(self, text="Go back to Main Menu",
                   relief="flat", width=20, height=2,
                   command=self.switch_main_menu) \
             .grid(row=4, column=0, columnspan=4, padx=10, pady=10, sticky="EW")
+        # Plot graph
+
+    def car_clicked(self, event):
+        if not self.car1.get() or self.car2.get():
+            self.GraphPlot.plot_price_comparison(self.car1.get(),
+                                                 self.car2.get()).get_tk_widget(). \
+                grid(row=2, column=0, padx=10, pady=10, sticky="NSEW")
+            self.GraphPlot.plot_battery_comparison(self.car1.get(),
+                                                 self.car2.get()).get_tk_widget(). \
+                grid(row=2, column=1, padx=10, pady=10, sticky="NSEW")
+            self.GraphPlot.plot_charge_comparison(self.car1.get(),
+                                                 self.car2.get()).get_tk_widget(). \
+                grid(row=2, column=2, padx=10, pady=10, sticky="NSEW")
+            self.GraphPlot.plot_range_comparison(self.car1.get(),
+                                                   self.car2.get()).get_tk_widget(). \
+                grid(row=2, column=3, padx=10, pady=10, sticky="NSEW")
+            self.GraphPlot.plot_top_speed_comparison(self.car1.get(),
+                                                 self.car2.get()).get_tk_widget(). \
+                grid(row=3, column=0, padx=10, pady=10, sticky="NSEW")
+            self.GraphPlot.plot_acceleration_comparison(self.car1.get(),
+                                                   self.car2.get()).get_tk_widget(). \
+                grid(row=3, column=1, padx=10, pady=10, sticky="NSEW")
+            self.GraphPlot.plot_efficiency_comparison(self.car1.get(),
+                                                        self.car2.get()).get_tk_widget(). \
+                grid(row=3, column=2, padx=10, pady=10, sticky="NSEW")
 
     def switch_main_menu(self):
         """ The function for swift to main menu """
