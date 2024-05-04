@@ -143,3 +143,13 @@ class GraphPlot:
         ax.set_title('Efficiency')
         histogram_widget = FigureCanvasTkAgg(fig, master=self.parent)
         return histogram_widget
+
+    def plot_correlation(self):
+        plt.close('all')
+        fig_corr, ax_corr = plt.subplots()
+        sns.scatterplot(x='Price.DE.', y='Efficiency', data=self.dataframe, ax=ax_corr)
+        ax_corr.set_xlabel("Price")
+        ax_corr.set_ylabel("Efficiency")
+        ax_corr.set_title("Correlation between Price and Efficiency")
+        correlation_widget = FigureCanvasTkAgg(fig_corr, master=self.parent)
+        return correlation_widget

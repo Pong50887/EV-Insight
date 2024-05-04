@@ -60,7 +60,3 @@ class Conversion:
 
     def get_conversion(self, currency_name):
         return self.conversion_rates.get(currency_name.upper())
-
-if __name__ == '__main__':
-    x = Conversion()
-    print(x.get_conversion("THB"))

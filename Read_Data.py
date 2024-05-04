@@ -24,4 +24,3 @@ class Data:
     def get_data(self):
         """ The function for get dataframe """
         return self.dataframe
-

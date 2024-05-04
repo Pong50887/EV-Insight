@@ -38,7 +38,7 @@ class App(tk.Tk):
 
         # Create Button to swift to function Insight
         tk.Button(self, text="EV insight",
-                  relief="flat", width=20, height=2, command=self.switch_estimate_menu).\
+                  relief="flat", width=20, height=2, command=self.switch_insight_menu).\
             grid(row=1, column=0, padx=10, pady=10, sticky="EW")
 
         # Create Button to swift to function Compare price
@@ -48,7 +48,7 @@ class App(tk.Tk):
 
         # Create Button to swift to function Show statistic
         tk.Button(self, text="Show Statistic of data",
-                  relief="flat", width=20, height=2). \
+                  relief="flat", width=20, height=2, command=self.swift_stat_menu). \
             grid(row=2, column=0, padx=10, pady=10, sticky="EW")
 
         # Create Button to swift to quit App
@@ -205,6 +205,49 @@ class App(tk.Tk):
                                                         self.car2.get()).get_tk_widget(). \
                 grid(row=3, column=2, padx=10, pady=10, sticky="NSEW")
 
+    def stat_menu(self):
+        """ The function for create statistic menu """
+
+        tk.Label(self, text="Statistic of Data", font=("Helvetica", 20),
+                 background="#bae8e8", foreground="black",
+                 borderwidth=20, highlightthickness=2). \
+            grid(row=0, column=0, columnspan=4, padx=10, pady=10, sticky="EW")
+
+        # Create Button to swift to main menu
+        tk.Button(self, text="Go back to Main Menu",
+                  relief="flat", width=20, height=2,
+                  command=self.switch_main_menu) \
+            .grid(row=4, column=0, columnspan=4, padx=10, pady=10, sticky="EW")
+
+        self.GraphPlot.plot_histogram("Price.DE.").get_tk_widget(). \
+            grid(row=1, column=0, padx=10, pady=10, sticky="NSEW")
+
+        self.GraphPlot.plot_correlation().get_tk_widget(). \
+            grid(row=1, column=1, padx=10, pady=10, sticky="NSEW")
+
+        # # Describe Histogram
+        # tk.Label(self, text="Mean : 6412613.17 | Std : 5027061.92 |"
+        #                     " Min : 110000.00 | Max : 28907325.00",
+        #          font=("Helvetica", 9),
+        #          background="#bae8e8", foreground="black",
+        #          borderwidth=5, highlightthickness=2). \
+        #     grid(row=2, column=0, columnspan=2, padx=10, sticky="EW")
+        #
+        # # Describe Bar graph
+        # tk.Label(self, text="The most expensive type of is "
+        #                     "Detected House, followed by Townhouse, Land, "
+        #                     "and Condo respectively.",
+        #          font=("Helvetica", 9),
+        #          background="#bae8e8", foreground="black",
+        #          borderwidth=5, highlightthickness=2). \
+        #     grid(row=2, column=2, columnspan=2, padx=10, sticky="EW")
+        #
+        # # Create Button to swift to main menu
+        # tk.Button(self, text="Go back to Main Menu",
+        #           relief="flat", width=20, height=2,
+        #           command=self.swift_main_menu) \
+        #     .grid(row=3, column=0, columnspan=4, padx=10, pady=10, sticky="EW")
+
     def switch_main_menu(self):
         """ The function for swift to main menu """
         for widget in self.winfo_children():
@@ -212,7 +255,7 @@ class App(tk.Tk):
             plt.close('all')
         self.main_menu()
 
-    def switch_estimate_menu(self):
+    def switch_insight_menu(self):
         """ The function for swift to estimate menu """
         for widget in self.winfo_children():
             widget.destroy()
@@ -225,6 +268,14 @@ class App(tk.Tk):
             widget.destroy()
             plt.close('all')
         self.compare_menu()
+
+    def swift_stat_menu(self):
+        """ The function for swift to compare menu """
+        for widget in self.winfo_children():
+            widget.destroy()
+            plt.close('all')
+        self.stat_menu()
+
 
 if __name__ == "__main__":
     app = App()
