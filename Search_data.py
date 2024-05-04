@@ -3,15 +3,15 @@ from Read_Data import Data
 """This is a class Estimate."""
 class Search:
     """
-    This is a class for estimate price of real estate.
+    This is a class for searching Data EV car
 
     Attributes:
-        data (Data): Data to store information of real estate.
+        data (Data): Data to store information of EV car.
         dataframe (dataframe) : Dataframe of data.
     """
     def __init__(self):
         """
-        The constructor for Estimate class.
+        The constructor for Search class.
         """
         self.data = Data()
         self.dataframe = self.data.get_data()
