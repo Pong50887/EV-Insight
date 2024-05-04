@@ -10,7 +10,7 @@ class GraphPlot:
 
     Attributes:
         parent (str): root of graph.
-        data (Data): Data to store information of real estate.
+        data (Data): Data to store information of EV_car
         dataframe (dataframe) : Dataframe of data.
     """
     def __init__(self, parent):
@@ -145,6 +145,7 @@ class GraphPlot:
         return histogram_widget
 
     def plot_correlation(self):
+        """Function to create a plot_correlation of all car models."""
         plt.close('all')
         fig_corr, ax_corr = plt.subplots()
         sns.scatterplot(x='Price.DE.', y='Efficiency', data=self.dataframe, ax=ax_corr)
