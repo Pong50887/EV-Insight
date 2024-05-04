@@ -179,8 +179,8 @@ class App(tk.Tk):
                   relief="flat", width=20, height=2,
                   command=self.switch_main_menu) \
             .grid(row=4, column=0, columnspan=4, padx=10, pady=10, sticky="EW")
-        # Plot graph
 
+        # Plot graph
     def car_clicked(self, event):
         if not self.car1.get() or self.car2.get():
             self.GraphPlot.plot_price_comparison(self.car1.get(),
