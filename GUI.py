@@ -17,7 +17,6 @@ class App(tk.Tk):
         self.search = Search()
         self.currency = Conversion()
         self.GraphPlot = GraphPlot(self)
-        self.resizable(False, False)
         self.current_text = self.search.get_defaut_data()
         self.old_rate = 1
         self.main_menu()
@@ -94,16 +93,33 @@ class App(tk.Tk):
             .grid(row=1, column=5, padx=10, pady=10)
 
         # SHOW ALL DATA
-        self.databox = tk.Text(self, width=50, height=20)
-        self.databox.grid(row=2, columnspan=6, padx=10, pady=10, sticky="SEW")
-        self.databox.config(state=tk.DISABLED)
+        self.treeview = ttk.Treeview()
+        self.treeview.grid(row=2, columnspan=6, pady=10, sticky="SEW")
         self.update_databox(self.search.get_defaut_data())
+        # self.databox = tk.Text(self, width=50, height=20)
+        # self.databox.grid(row=2, columnspan=6, padx=10, pady=10, sticky="SEW")
+        # self.databox.config(state=tk.DISABLED)
+        # self.update_databox(self.search.get_defaut_data())
+
+        self.scrollbar = ttk.Scrollbar(orient="vertical", command=self.treeview.yview)
+        self.scrollbar.grid(row=2, column=6, sticky='ns')
+        self.treeview.configure(yscrollcommand=self.scrollbar.set)
 
         tk.Button(self, text='Back to Main Menu', width=20, height=2, command=self.switch_main_menu) \
             .grid(row=3, columnspan=5, padx=10, pady=10)
 
         tk.Button(self, text='Reset', width=20, height=2, command=self.reset) \
             .grid(row=3, column=5, padx=10, pady=10)
+
+    # def update_treeview(self, data):
+    #     columns = list(data.columns)
+    #     self.treeview['columns'] = columns
+    #     self.treeview.column("#0", width=0, stretch=tk.NO)
+    #     for col in columns:
+    #         self.treeview.column(col, anchor=tk.W, width=120)
+    #         self.treeview.heading(col, text=col, anchor=tk.W)
+    #     for index, row in data.iterrows():
+    #         self.treeview.insert("", tk.END, values=list(row))
 
     def reset(self):
         self.update_databox(self.search.get_defaut_data())
@@ -139,11 +155,22 @@ class App(tk.Tk):
         self.update_databox(fast_charge)
 
     def update_databox(self, data):
-        self.databox.config(state=tk.NORMAL)
-        self.databox.delete("1.0", tk.END)
-        self.current_text = data
-        self.databox.insert(tk.END, data)
-        self.databox.config(state=tk.DISABLED)
+        # self.databox.config(state=tk.NORMAL)
+        # self.databox.delete("1.0", tk.END)
+        # self.current_text = data
+        # self.databox.insert(tk.END, data)
+        # self.databox.config(state=tk.DISABLED)
+        for item in self.treeview.get_children():
+            self.treeview.delete(item)
+        
+        columns = list(data.columns)
+        self.treeview['columns'] = columns
+        self.treeview.column("#0", width=0, stretch=tk.NO)
+        for col in columns:
+            self.treeview.column(col, anchor=tk.W, width=120)
+            self.treeview.heading(col, text=col, anchor=tk.W)
+        for index, row in data.iterrows():
+            self.treeview.insert("", tk.END, values=list(row))
 
     def compare_menu(self):
         self.geometry('1800x700')
