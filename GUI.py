@@ -107,8 +107,9 @@ class App(tk.Tk):
                  relief="flat", font=("fantasy", 15), foreground="#524364") \
             .grid(row=0, column=4, padx=10, pady=10)
 
-        x = self.currency.get_currency_names()
-        self.combo_price = ttk.Combobox(self, width=20, height=10, values=x)
+        price = self.currency.get_currency_names()
+        self.combo_price = ttk.Combobox(self, width=20, height=10,
+                                        values=price)
         self.combo_price.grid(row=0, column=5, padx=10, pady=10)
         self.combo_price.bind("<<ComboboxSelected>>", self.combobox_clicked)
         self.combo_price.current(0)
