@@ -1,6 +1,6 @@
 import pandas as pd
 
-"""This is a class Data."""
+
 class Data:
     """
      This is a class to read data file.
@@ -9,6 +9,7 @@ class Data:
          path (str): Path of data file.
          dataframe (dataframe): Dataframe of data.
      """
+
     def __init__(self):
         """
         The constructor for Data class.
