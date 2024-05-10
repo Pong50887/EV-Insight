@@ -14,6 +14,7 @@ class Search:
         The constructor for Search class.
         """
         self.data = Data()
+        self.link_data = self.data.get_link()
         self.dataframe = self.data.get_data()
         self.mainframe = self.dataframe.copy()
 
@@ -30,6 +31,7 @@ class Search:
     def get_price(self, rate, old_rate):
         self.mainframe['Price.DE.'] /= old_rate
         self.mainframe['Price.DE.'] *= rate
+        self.mainframe['Price.DE.'] = round(self.mainframe['Price.DE.'], 1)
         return self.mainframe
 
     def search_most_efficient(self):
@@ -51,3 +53,10 @@ class Search:
     def get_car_name_list(self):
         car_names = self.dataframe['Car_name'].tolist()
         return car_names
+
+    def reset_mainframe(self):
+        self.mainframe = self.dataframe.copy()
+
+    def get_link_from_csv(self, car_name):
+        car_data = self.link_data[self.link_data['Car_name'] == car_name]
+        return car_data.iloc[0]['Car_name_link']
