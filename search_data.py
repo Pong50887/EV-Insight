@@ -1,6 +1,6 @@
-from tkinter import messagebox
-from Read_Data import Data
-"""This is a class Estimate."""
+from read_data import Data
+
+
 class Search:
     """
     This is a class for searching Data EV car
@@ -9,6 +9,7 @@ class Search:
         data (Data): Data to store information of EV car.
         dataframe (dataframe) : Dataframe of data.
     """
+
     def __init__(self):
         """
         The constructor for Search class.
@@ -19,13 +20,14 @@ class Search:
         self.mainframe = self.dataframe.copy()
 
     def search_data(self, entry_search):
-        results = self.mainframe[self.mainframe['Car_name'].str.lower().str.contains(entry_search)]
+        results = self.mainframe[
+            self.mainframe['Car_name'].str.lower().str.contains(entry_search)]
         if results.empty:
             return "No matching results"
         else:
             return results
 
-    def get_defaut_data(self):
+    def get_default_data(self):
         return self.dataframe
 
     def get_price(self, rate, old_rate):
@@ -35,7 +37,7 @@ class Search:
         return self.mainframe
 
     def search_most_efficient(self):
-        sort = self.mainframe.sort_values(by='Efficiency',ascending=False)
+        sort = self.mainframe.sort_values(by='Efficiency', ascending=False)
         return sort
 
     def search_longest_range(self):
