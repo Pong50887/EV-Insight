@@ -30,17 +30,6 @@ Germany, range, top speed, and acceleration from 0 to 100 km/h.
 5. [read_data.py](read_data.py) : contain class Data
 6. [search_data.py](search_data.py) : contain class process and calculation.
 
-## Installation
-1. Clone GitHub repository 
-   - git clone https://github.com/Pong50887/EV-Insight.git
-2. Create new virtual environment
-   - python -m venv env
-3. Activate virtual environment
-   - . env/bin/activate
-4. Install required modules
-   - pip install -r requirements.txt
-5. Run main file
-   - python main.py
-
-
+## Installation, GitHub Wiki
+[GitHub Wiki Home](https://github.com/Pong50887/EV-Insight/wiki)
 
