@@ -14,7 +14,7 @@ class Conversion:
         'CAD': 1.45,  # Canadian Dollar
         'CHF': 1.00,  # Swiss Franc
         'CNY': 7.02,  # Chinese Yuan Renminbi
-        'SEK': 10.24,  # Swedish Krona
+        'SEK': 10.24,  # Swedish
         'NZD': 1.65,  # New Zealand Dollar
         'KRW': 1355.92,  # South Korean Won
         'SGD': 1.51,  # Singapore Dollar
