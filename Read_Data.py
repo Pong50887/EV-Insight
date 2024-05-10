@@ -15,6 +15,7 @@ class Data:
         """
         self.path = "final_data.csv"
         self.dataframe = pd.read_csv(self.path)
+        self.link_data = self.dataframe[["Car_name", "Car_name_link"]]
         self.dataframe.drop(columns=['Unnamed: 0'], inplace=True)
         self.dataframe.drop(columns=['Car_name_link'], inplace=True)
         pd.set_option("display.max_rows", None)
@@ -24,3 +25,6 @@ class Data:
     def get_data(self):
         """ The function for get dataframe """
         return self.dataframe
+
+    def get_link(self):
+        return self.link_data
