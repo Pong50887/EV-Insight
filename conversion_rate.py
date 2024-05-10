@@ -5,10 +5,11 @@ from dataclasses import dataclass
 class Conversion:
 
     conversion_rates = {
-        'EUR': 1, # Germany
+        'EUR': 1,  # Germany
         'USD': 1.08,  # US Dollar
-        'GBP': 0.88,  # British Pound Sterling
+        'THB': 34.57,  # Thai Baht
         'JPY': 116.20,  # Japanese Yen
+        'GBP': 0.88,  # British Pound Sterling
         'AUD': 1.56,  # Australian Dollar
         'CAD': 1.45,  # Canadian Dollar
         'CHF': 1.00,  # Swiss Franc
@@ -28,7 +29,6 @@ class Conversion:
         'HKD': 8.40,  # Hong Kong Dollar
         'DKK': 7.44,  # Danish Krone
         'PLN': 4.45,  # Polish Zloty
-        'THB': 34.57,  # Thai Baht
         'IDR': 15415.67,  # Indonesian Rupiah
         'HUF': 356.98,  # Hungarian Forint
         'CZK': 25.56,  # Czech Koruna
