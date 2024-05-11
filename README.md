@@ -30,6 +30,11 @@ Germany, range, top speed, and acceleration from 0 to 100 km/h.
 5. [read_data.py](read_data.py) : contain class Data
 6. [search_data.py](search_data.py) : contain class process and calculation.
 
-## Installation, GitHub Wiki
+## Project Proposal, Development plan
 [GitHub Wiki Home](https://github.com/Pong50887/EV-Insight/wiki)
 
+## Installation
+[GitHub Installation](https://github.com/Pong50887/EV-Insight/wiki/Installation-page)
+
+## UML and Sequence Diagram
+[GitHub UML and Sequence Diagram](https://github.com/Pong50887/EV-Insight/wiki/UML-and-Sequence-Diagram)
