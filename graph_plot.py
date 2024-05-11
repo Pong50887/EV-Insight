@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-from read_data import Data
+from read_Data import Data
 import seaborn as sns
 
 
