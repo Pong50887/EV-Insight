@@ -15,7 +15,7 @@ Statistic Menu
 
 
 ## Data Sources
-200k+ homes for sale in Thailand dataset from https://www.kaggle.com/datasets/fatihilhan/electric-vehicle-specifications-and-prices/data.
+https://www.kaggle.com/datasets/fatihilhan/electric-vehicle-specifications-and-prices/data.
 This dataset encompasses a rich array of information crucial for understanding 
 the landscape of electric mobility. Each entry includes details on the 
 vehicle's battery capacity, model name, link to the EV Database for additional 
