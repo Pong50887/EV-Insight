@@ -30,6 +30,7 @@ class App(tk.Tk):
         self.columnconfigure(3, weight=0)
         self.rowconfigure(1, weight=1)
         self.rowconfigure(2, weight=1)
+        self.rowconfigure(3, weight=0)
         self.configure(background="#BDBDBD")
 
         # Create Label Select Menu
@@ -75,6 +76,10 @@ class App(tk.Tk):
         self.columnconfigure(1, weight=0)
         self.columnconfigure(2, weight=1)
         self.columnconfigure(3, weight=1)
+        self.rowconfigure(0, weight=0)
+        self.rowconfigure(1, weight=0)
+        self.rowconfigure(2, weight=1)
+        self.rowconfigure(3, weight=0)
         self.configure(background="#E2D5F5")
         """ The function for insight main menu """
 
@@ -213,6 +218,8 @@ class App(tk.Tk):
         self.columnconfigure(3, weight=1)
         self.rowconfigure(0, weight=0)
         self.rowconfigure(1, weight=0)
+        self.rowconfigure(2, weight=1)
+        self.rowconfigure(3, weight=1)
         self.configure(background="#E2D5F5")
         default1 = tk.StringVar(value='---')
         default2 = tk.StringVar(value='---')
