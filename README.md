@@ -27,7 +27,7 @@ Germany, range, top speed, and acceleration from 0 to 100 km/h.
 2. [GUI.py](GUI.py) : contain all of GUI
 3. [conversion_rate.py](conversion_rate.py) : contain data class of conversion rate
 4. [graph_plot.py](graph_plot.py) : contain class graph plot
-5. [read_data.py](read_Data.py) : contain class Data
+5. [read_data.py](read_data.py) : contain class Data
 6. [search_data.py](search_data.py) : contain class process and calculation.
 
 ## Installation, GitHub Wiki
