@@ -38,3 +38,6 @@ Germany, range, top speed, and acceleration from 0 to 100 km/h.
 
 ## UML and Sequence Diagram
 [GitHub Class and Sequence Diagram](https://github.com/Pong50887/EV-Insight/wiki/UML-and-Sequence-Diagram)
+
+## Demo
+[Demo](https://drive.google.com/file/d/1cyM9xl_YMcr6clld7RPaJ9OumCbKkxf3/view?usp=sharing)
