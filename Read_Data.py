@@ -29,3 +29,4 @@ class Data:
 
     def get_link(self):
         return self.link_data
+
