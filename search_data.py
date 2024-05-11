@@ -23,7 +23,7 @@ class Search:
         results = self.mainframe[
             self.mainframe['Car_name'].str.lower().str.contains(entry_search)]
         if results.empty:
-            return "No matching results"
+            pass
         else:
             return results
 
